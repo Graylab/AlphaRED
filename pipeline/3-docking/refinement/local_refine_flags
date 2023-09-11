@@ -1,0 +1,19 @@
+#-in:file:s complex.pdb  # Change this to a specific structure (or list of structures with -in:file:l) you want to refine
+in:file:native native.pdb
+-nstruct        1
+
+-docking_local_refine
+-evaluation:DockMetrics
+-DockMetrics true
+@partners
+
+-detect_disulf true
+-rebuild_disulf true
+-detect_disulf_tolerance 2.0
+-ignore_zero_occupancy  false
+-ex1
+-ex2aro
+
+# Note this is score only as of now for preserving disk space
+-out:file:score_only high_res.sc
+-multiple_processes_writing_to_one_directory true

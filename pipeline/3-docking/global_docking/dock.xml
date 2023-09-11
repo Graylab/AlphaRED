@@ -1,0 +1,37 @@
+<ROSETTASCRIPTS>
+<SCOREFXNS>
+    <ScoreFunction name="score_dock_low" weights="muds_2021"/>
+</SCOREFXNS>
+<FILTERS>
+</FILTERS>
+<RESIDUE_SELECTORS>
+</RESIDUE_SELECTORS>
+<MOVE_MAP_FACTORIES>
+</MOVE_MAP_FACTORIES>
+<SIMPLE_METRICS>
+</SIMPLE_METRICS>
+<MOVERS>
+    <!-- setup jumps and constraints-->
+    <SwitchResidueTypeSetMover name="switch2centroid" set="centroid"/>
+    <SwitchResidueTypeSetMover name="switch2fullatom" set="fa_standard"/>
+    <DockSetupMover name="setup_jump"/>
+    <AddEncounterConstraintMover name="encounter_cst" gap="8"/>
+    <RigidBodyPerturbNoCenter name="rb_mover" rot_mag="2" trans_mag="1"/>
+    <HamiltonianExchange name="h_exchange" temp_file="hamiltonians_cen.txt"  temp_stride="1000" stats_file="tempering.stats"/>
+    <DockingInitialPerturbation name="init_pert" randomize1="true" randomize2="true"/>
+    <TrialCounterObserver name="count" file="trial.stats"/>
+    <SilentTrajectoryRecorder name="traj" score_stride="1" stride="1000" cumulate_replicas="1" />
+    <MetropolisHastings name="sampler" trials="500000" scorefxn="score_dock_low" > <!--trial number normally use 10000000 for productive simulation-->
+        <Add mover_name="h_exchange"/>
+        <Add mover_name="traj"/>
+        <Add mover_name="count"/>
+        <Add mover_name="rb_mover"/>
+    </MetropolisHastings>
+ </MOVERS>
+ <PROTOCOLS>
+     <Add mover_name="setup_jump"/>
+     <Add mover_name="encounter_cst"/>
+     <Add mover_name="init_pert"/>
+     <Add mover_name="sampler"/>
+</PROTOCOLS>
+</ROSETTASCRIPTS>

@@ -1,0 +1,49 @@
+<ROSETTASCRIPTS>
+<SCOREFXNS>
+    <ScoreFunction name="score_dock_low" weights="muds_2021"/>
+</SCOREFXNS>
+<FILTERS>
+</FILTERS>
+<RESIDUE_SELECTORS>
+    <BFactorSelector name="bfactor" lower_bfactor="0.0" upper_bfactor="80.0" lower="1" upper="1" min_contiguous_res="4"/>
+    <StoredResidueSubset name="get_plddt" subset_name="plddt"/>
+</RESIDUE_SELECTORS>
+<MOVE_MAP_FACTORIES>
+    <MoveMapFactory name="flexRes">
+            <Backbone residue_selector="get_plddt"/>
+            <Chi residue_selector="get_plddt"/>
+    </MoveMapFactory>
+</MOVE_MAP_FACTORIES>
+<SIMPLE_METRICS>
+</SIMPLE_METRICS>
+<MOVERS>
+    <!-- setup jumps and constraints-->
+    <SwitchResidueTypeSetMover name="switch2centroid" set="centroid"/>
+    <SwitchResidueTypeSetMover name="switch2fullatom" set="fa_standard"/>
+    <DockSetupMover name="setup_jump"/>
+    <StoreResidueSubset name="store_subset" residue_selector="bfactor" subset_name="plddt"/>
+    <AddEncounterConstraintMover name="encounter_cst" gap="8"/>
+    <RigidBodyPerturbNoCenter name="rb_mover" rot_mag="0.5" trans_mag="1"/>
+    <HamiltonianExchange name="h_exchange" temp_file="hamiltonians_cen.txt"  temp_stride="1000" stats_file="tempering.stats"/>
+    <DockingInitialPerturbation name="init_pert" slide="1"/>
+    <TrialCounterObserver name="count" file="trial.stats"/>
+    <SilentTrajectoryRecorder name="traj" score_stride="1" stride="1000" cumulate_replicas="1" />
+    <Backrub name="bbmover" movemap_factory="flexRes" require_mm_bend="0"/>
+    <BalancedKicMover name="kicmover" residue_selector="get_plddt"/>
+    <MetropolisHastings name="sampler" trials="100000" scorefxn="score_dock_low" > <!--trial number normally use 1000000 for productive simulation-->
+        <Add mover_name="h_exchange"/>
+        <Add mover_name="traj"/>
+        <Add mover_name="count"/>
+        <Add mover_name="rb_mover"/>
+        <Add mover_name="bbmover" sampling_weight="1"/>
+        <!--Add mover_name="kicmover" sampling_weight="0.5"/--> <!--Note: KIC moves sample diverse conformations but can break loops in some scenarios.-->
+    </MetropolisHastings>
+ </MOVERS>
+ <PROTOCOLS>
+     <Add mover_name="store_subset"/>
+     <Add mover_name="setup_jump"/>
+     <Add mover_name="encounter_cst"/>
+     <Add mover_name="init_pert"/>
+     <Add mover_name="sampler"/>
+</PROTOCOLS>
+</ROSETTASCRIPTS>

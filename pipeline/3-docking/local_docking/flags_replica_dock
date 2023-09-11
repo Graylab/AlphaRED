@@ -1,0 +1,32 @@
+-out:level 300
+-mute all_high_mpi_rank_filebuf
+-out:nstruct 4      # No of trajectories (can try with 8)
+-run:n_replica 3    # No of replicas in each trajectory
+
+-in:file:s P.pdb    # The prediction complex here is P.pdb. Can be changed to the top model from global docking if used before. 
+-in:file:native native.pdb   # Also copying the prediction complex as native.pdb for reference here
+-parser:protocol dock.xml
+-evaluation:DockMetrics
+-DockMetrics true
+
+-score:weights muds_2021
+# Change to path of your Rosetta directory accordingly.
+-mh:path:scores_BB_BB ../../../../Rosetta/main/database/additional_protocol_data/motif_dock/xh_16_
+-mh:score:use_ss1 false
+-mh:score:use_ss2 false
+-mh:score:use_aa1 true
+-mh:score:use_aa2 true
+-partners A_B     # Change this to the specific partner chains
+
+
+-out::file::output_pose_cache_data false
+-out:path:all output
+-out:file:silent decoys.out
+-out:file:scorefile scores.fsc
+-run:intermediate_structures
+
+-out:mpi_tracer_to_file logs/log
+-jd2:mpi_timeout_factor 0
+-ignore_zero_occupancy 0
+
+-multiple_processes_writing_to_one_directory
