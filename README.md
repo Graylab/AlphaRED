@@ -1,11 +1,20 @@
 # AlphaRED
-AlphaFold-initiated replica exchange protein docking 
+AlphaFold-initiated replica exchange protein docking is a pipeline to predict protein complex structures from sequences. This pipeline follows a sequence to structure to complex paradigm while employing AlphaFold for structure prediction followed by ReplicaDock2.0 for protein-protein docking. 
+
+For more details, please check out our paper [here](https://doi.org/10.1101/2023.07.28.551063):
+Harmalkar A, Lyskov S, Gray JJ, "Reliable protein-protein docking with AlphaFold, Rosetta and replica-exchange", bioRxiv, July 2023. 
 
 ## Pipeline
 
 Currently, this approach is distributed as a step-wise pipeline involving sequence-to-structure prediction, analysis of prediction accuracy, and docking. 
 For structure prediction, we have equipped AlphaFold, however, ESMFold and OmegaFold structures could also be used as all predictive methods deposit structure confidence values (e.g., pLDDT) in the B-factor column of the generated models.
 For docking, we use ReplicaDock 2.0 with in-built upgrades to select flexible ("mobile") residues based on pLDDT values.
+
+### How to use AlphaRED?
+
+1. Go to `AlphaRED/pipeline/1-structure_prediction/` to set-up local installation of ColabFold. This would be used for structure prediction. Alternative structure prediction tools such as ESMFold, OmegaFold, etc could also be used in place of AlphaFold based on the preference of the user.
+2. Next, go to `AlphaRED/pipeline/2-prediction_analysis/` to analyze the state of the prediction, i.e. is the binding site correctly identified or not? If not, perform global docking. Otherwise, perform local docking and refinement.
+3. Finally, in `AlphaRED/pipeline/3-docking/`, based on the binding mode identified, perform the respective docking analysis. If you perform global docking first, the top decoys from global docking are down-selected for local docking. If you perform local docking directly, select the top-scoring decoys (based on Interface scores) for side-chian refinement and relaxation. 
 
 
 ## Installation
