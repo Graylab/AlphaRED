@@ -22,7 +22,7 @@
     <SwitchResidueTypeSetMover name="switch2fullatom" set="fa_standard"/>
     <DockSetupMover name="setup_jump"/>
     <StoreResidueSubset name="store_subset" residue_selector="bfactor" subset_name="plddt"/>
-    <AddEncounterConstraintMover name="encounter_cst" gap="8"/>
+    <!--AddEncounterConstraintMover name="encounter_cst" gap="8"/--> <!--This feature is available in developer versions only-->
     <RigidBodyPerturbNoCenter name="rb_mover" rot_mag="0.5" trans_mag="1"/>
     <HamiltonianExchange name="h_exchange" temp_file="hamiltonians_cen.txt"  temp_stride="1000" stats_file="tempering.stats"/>
     <DockingInitialPerturbation name="init_pert" slide="1"/>
