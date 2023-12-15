@@ -15,7 +15,7 @@
     <SwitchResidueTypeSetMover name="switch2centroid" set="centroid"/>
     <SwitchResidueTypeSetMover name="switch2fullatom" set="fa_standard"/>
     <DockSetupMover name="setup_jump"/>
-    <AddEncounterConstraintMover name="encounter_cst" gap="8"/>
+    <!--AddEncounterConstraintMover name="encounter_cst" gap="8"/--> <!--This feature is available in developer versions only-->
     <RigidBodyPerturbNoCenter name="rb_mover" rot_mag="2" trans_mag="1"/>
     <HamiltonianExchange name="h_exchange" temp_file="hamiltonians_cen.txt"  temp_stride="1000" stats_file="tempering.stats"/>
     <DockingInitialPerturbation name="init_pert" randomize1="true" randomize2="true"/>
