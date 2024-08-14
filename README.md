@@ -14,8 +14,11 @@ For docking, we use ReplicaDock 2.0 with in-built upgrades to select flexible ("
 
 1. Go to `AlphaRED/pipeline/1-structure_prediction/` to set-up local installation of ColabFold. This would be used for structure prediction. Alternative structure prediction tools such as ESMFold, OmegaFold, etc could also be used in place of AlphaFold based on the preference of the user.
 2. Next, go to `AlphaRED/pipeline/2-prediction_analysis/` to analyze the state of the prediction, i.e. is the binding site correctly identified or not? If not, perform global docking. Otherwise, perform local docking and refinement.
-3. Finally, in `AlphaRED/pipeline/3-docking/`, based on the binding mode identified, perform the respective docking analysis. If you perform global docking first, the top decoys from global docking are down-selected for local docking. If you perform local docking directly, select the top-scoring decoys (based on Interface scores) for side-chian refinement and relaxation. 
+3. Finally, in `AlphaRED/pipeline/3-docking/`, based on the binding mode identified, perform the respective docking analysis. If you perform global docking first, the top decoys from global docking are down-selected for local docking. If you perform local docking directly, select the top-scoring decoys (based on Interface scores) for side-chian refinement and relaxation.
 
+To run docking simulation, use command:
+##   mpirun $ROSETTA_DIR/source/bin/rosetta_scripts.mpi.linuxgccrelease @flags_replica_dock
+where $ROSETTA_DIR is your Rosetta's directory
 
 ## Installation
 
