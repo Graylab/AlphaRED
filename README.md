@@ -30,7 +30,7 @@ Please note that the provided Docker image includes **Rosetta** which **requi
 
 To run the application, use the `alpha-red` script, which executes all required steps sequentially. The script requires a docking partner string and a sequence as input. Additionally, you may specify the `-jN` flag to utilize multiple CPU cores for improved performance.
 
-#### Example Usage: Example usage:
+#### Example Usage:
 ```sh
 mkdir ./alpha-red
 docker run -it -v ./alpha-red:/alpha-red rosettacommons/rosetta:alpha-red alpha-red -j32 A_B AACD:BBCCC
