@@ -19,6 +19,27 @@ For docking, we use ReplicaDock 2.0 with in-built upgrades to select flexible ("
 
 ## Installation
 
+### RosettaCommons AlphaRed container
+
+##### Licensing
+The AlphaRed protocol requires a comprehensive set of tools. To streamline this process, we provide a Docker container that includes all necessary applications pre-installed, offering a straightforward command-line interface for running the AlphaRed protocol.
+
+Please note that the provided Docker image includes **Rosetta** which **require a commercial license for non-academic use**. For more details, please refer to: [RosettaCommons](https://github.com/RosettaCommons/rosetta)
+
+### Running AlphaRed Using the RosettaCommons Docker Container
+
+To run the application, use the `alpha-red` script, which executes all required steps sequentially. The script requires a docking partner string and a sequence as input. Additionally, you may specify the `-jN` flag to utilize multiple CPU cores for improved performance.
+
+#### Example Usage: Example usage:
+```sh
+mkdir ./alpha-red
+docker run -it -v ./alpha-red:/alpha-red rosettacommons/rosetta:alpha-red alpha-red -j32 A_B AACD:BBCCC
+```
+
+For a full list of available options, run: `docker run -it rosettacommons/rosetta:alpha-red alpha-red --help`
+
+### Local Install
+
 The installation instructions for each stage of the pipeline are detailed in its respective directory in `pipeline` folder. 
 To navigate, the folder hierarchy is as follows:
 
