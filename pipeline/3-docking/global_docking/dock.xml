@@ -30,7 +30,7 @@
  </MOVERS>
  <PROTOCOLS>
      <Add mover_name="setup_jump"/>
-     <Add mover_name="encounter_cst"/>
+     <!-- <Add mover_name="encounter_cst"/> -->
      <Add mover_name="init_pert"/>
      <Add mover_name="sampler"/>
 </PROTOCOLS>
