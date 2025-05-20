@@ -33,10 +33,10 @@ To run the application, use the `alpha-red` script, which executes all require
 #### Example Usage:
 ```sh
 mkdir ./alpha-red
-docker run -it -v ./alpha-red:/alpha-red rosettacommons/rosetta:alpha-red alpha-red -j32 A_B AACD:BBCCC
+docker run -it -v ./alpha-red:/alpha-red rosettacommons/apps:alpha-red alpha-red -j32 A_B AACD:BBCCC
 ```
 
-For a full list of available options, run: `docker run -it rosettacommons/rosetta:alpha-red alpha-red --help`
+For a full list of available options, run: `docker run -it rosettacommons/apps:alpha-red alpha-red --help`
 
 ### Local Install
 
